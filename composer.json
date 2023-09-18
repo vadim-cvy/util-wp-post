@@ -1,0 +1,11 @@
+{
+  "name": "cvy/util-wp-post",
+  "autoload": {
+    "psr-4": {
+      "Cvy\\WP\\Post\\": "src/"
+    }
+  },
+  "require": {
+    "cvy/util-wp-object": "^1"
+  }
+}

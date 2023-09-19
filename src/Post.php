@@ -41,4 +41,16 @@ class Post extends \Cvy\WP\Object\WPObject
 
     return wp_get_post_terms( $this->get_id(), $taxonomy, $query_args );
   }
+
+  public function get_edit_url( array $query_args = [] ) : string
+  {
+    $url = get_edit_post_link( $this->get_id(), '&' );
+
+    if ( ! empty( $query_args ) )
+    {
+      $url = add_query_arg( $query_args, $url );
+    }
+
+    return $url;
+  }
 }

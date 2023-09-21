@@ -6,6 +6,6 @@
     }
   },
   "require": {
-    "cvy/util-wp-object": "^1"
+    "cvy/util-wp-object": "^1."
   }
 }

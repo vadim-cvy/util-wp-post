@@ -33,6 +33,8 @@ class Post extends \Cvy\WP\Object\WPObject
     delete_post_meta( $this->get_id(), $selector );
   }
 
+  // Todo: 2.0.0 - make final
+  // Todo: 2.0.0 - use util-wp-terms-query
   public function get_terms( string $taxonomy, array $query_args = [] ) : array
   {
     $query_args = array_merge([
@@ -42,6 +44,7 @@ class Post extends \Cvy\WP\Object\WPObject
     return wp_get_post_terms( $this->get_id(), $taxonomy, $query_args );
   }
 
+  // Todo: 2.0.0 - make final
   public function get_edit_url( array $query_args = [] ) : string
   {
     $url = get_edit_post_link( $this->get_id(), '&' );
@@ -52,5 +55,10 @@ class Post extends \Cvy\WP\Object\WPObject
     }
 
     return $url;
+  }
+
+  final public function get_post_type() : string
+  {
+    return get_post_type( $this->get_id() );
   }
 }

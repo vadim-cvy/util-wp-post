@@ -1,13 +1,22 @@
 <?php
 namespace Cvy\WP\Post;
 
+/**
+ * WP post wrapper.
+ */
 class Post extends \Cvy\WP\Object\WPObject
 {
-  final public function get_original() : object
+  /**
+   * @return \WP_Post WP original post instance.
+   */
+  final public function get_original() : \WP_Post
   {
     return get_post( $this->get_id() );
   }
 
+  /**
+   * @return string Post title.
+   */
   public function get_label() : string
   {
     return get_the_title( $this->get_id() );
@@ -33,8 +42,16 @@ class Post extends \Cvy\WP\Object\WPObject
     delete_post_meta( $this->get_id(), $selector );
   }
 
-  // Todo: 2.0.0 - make final
-  // Todo: 2.0.0 - use util-wp-terms-query
+  /**
+   * Retrieves post terms.
+   *
+   * @todo major - make final
+   * @todo major - use util-wp-terms-query
+   *
+   * @param string $taxonomy Terms taxonomy.
+   * @param array $query_args Extra get_terms() args.
+   * @return array
+   */
   public function get_terms( string $taxonomy, array $query_args = [] ) : array
   {
     $query_args = array_merge([
@@ -44,19 +61,25 @@ class Post extends \Cvy\WP\Object\WPObject
     return wp_get_post_terms( $this->get_id(), $taxonomy, $query_args );
   }
 
-  // Todo: 2.0.0 - make final
-  public function get_edit_url( array $query_args = [] ) : string
+  /**
+   * @param array $args Extra GET args.
+   * @return string URL of the dashboard edit page.
+   */
+  public function get_edit_url( array $args = [] ) : string
   {
     $url = get_edit_post_link( $this->get_id(), '&' );
 
-    if ( ! empty( $query_args ) )
+    if ( ! empty( $args ) )
     {
-      $url = add_query_arg( $query_args, $url );
+      $url = add_query_arg( $args, $url );
     }
 
     return $url;
   }
 
+  /**
+   * @return string Post-type slug.
+   */
   final public function get_post_type() : string
   {
     return get_post_type( $this->get_id() );
